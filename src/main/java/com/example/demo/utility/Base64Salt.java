@@ -5,9 +5,15 @@ import lombok.Data;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Base64;
 @Data
 public class Base64Salt {
+    public static void main(String[] args) {
+        String payLoad = "dE4yYjVNYktoMHVrWmhZNWhveEF1QT09Jj0mPWZhdXphbndlJj0mPW1mYXV6YW41MTA4N0BnbWFpbC5jb20=";
+        String decodedString = new String(Base64.getDecoder().decode(payLoad));
+        System.err.println(decodedString);
+    }
     private static String generateSalt() throws NoSuchAlgorithmException {
         SecureRandom random = SecureRandom.getInstanceStrong();
         byte[] saltBytes = new byte[16];

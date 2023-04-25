@@ -12,7 +12,6 @@ public class Base64SaltExample {
         String salt = generateSalt();
         String hashedText = hashWithSalt(plainText, salt);
         String encodedText = encodeWithSalt(plainText, salt);
-
         System.out.println("Plain Text: " + plainText);
         System.out.println("Salt: " + salt);
         System.out.println("Hashed Text: " + hashedText);
