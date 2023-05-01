@@ -4,24 +4,21 @@ import com.example.demo.dto.AuthorDTO;
 import com.example.demo.dto.ConfigDTO;
 import com.example.demo.model.Author;
 import com.example.demo.repository.AuthorRepository;
-import com.example.demo.utility.ClearClass;
+import com.example.demo.utility.JsonParser;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-
-
 @AllArgsConstructor
 @Service
 public class AuthorService {
     private final EmailService emailService;
     private final AuthorRepository authorRepository;
     private final ConfigDTO configDTO;
-    private final ClearClass clearClass;
+    private final JsonParser jsonParser;
     public List<Author>  getAllDataAuthor(){
         return authorRepository.findAll();
     }
@@ -29,8 +26,9 @@ public class AuthorService {
         return authorRepository.findById(id);
     }
     public Author saveData(AuthorDTO dto) throws NoSuchAlgorithmException, IOException {
+
         String uniqueKey = dto.getUniqueKey();
-        String payLoad = clearClass.encodeJson(uniqueKey, dto.getUsername(), dto.getEmail());
+        String payLoad = jsonParser.encodeJson(uniqueKey, dto.getUsername(), dto.getEmail());
         String link = configDTO.domain+payLoad;
         Author author = new Author();
         author.setPassword(dto.getPassword());

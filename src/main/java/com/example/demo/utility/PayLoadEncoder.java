@@ -2,7 +2,6 @@ package com.example.demo.utility;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.Base64;
 @Service
 @AllArgsConstructor
