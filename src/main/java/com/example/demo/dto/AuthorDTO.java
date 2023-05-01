@@ -1,8 +1,6 @@
 package com.example.demo.dto;
 
 import lombok.Data;
-import org.springframework.context.annotation.Bean;
-
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;

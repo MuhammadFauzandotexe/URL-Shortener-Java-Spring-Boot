@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dedicated Code-Verifikasi Email</title>
+  <style>a {
+  color: #000000;
+  }
+        body {
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #999;
+        }
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+  <h1>Dedicated Code-Verifikasi Email</h1>
+  <h2>Hai, <span th:text="${username}"></span></h2>
+  <p>Terima kasih telah mendaftar di situs Linkku.com. Untuk melanjutkan, silahkan verifikasi alamat email Anda dengan mengklik tombol di bawah ini:</p>
+  <a th:href="${link}" class="btn">Verifikasi Email</a>
+  <div class="ornament">
+    <svg width="100%" height="100%" viewBox="0 0 600 200" preserveAspectRatio="none">
+      <path d="M0,0 L200,200 L0,200 Z" fill="#007bff" />
+      <path d="M200,200 L400,0 L600,200 Z" fill="#007bff" />
+    </svg>
+  </div>
+  <div class="footer">
+    <p>Jika Anda mengalami masalah dalam melakukan verifikasi email, silahkan hubungi <a href="mailto:mfauzan51087@gmail.com">tim kami</a>.</p>
+  </div>
+</div>
+</body>
+</html>

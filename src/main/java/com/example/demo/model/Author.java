@@ -2,12 +2,10 @@ package com.example.demo.model;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
 @Data
 @Entity
 @Table(name = "authors")
@@ -30,5 +28,5 @@ public class Author {
     private LocalDateTime updatedAt;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
-    private Set<URL> employees = new HashSet<>();
+    private Set<URL> links = new HashSet<>();
 }

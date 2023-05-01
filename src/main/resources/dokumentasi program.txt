@@ -1,44 +1,4 @@
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Base64;
-
-public class PasswordHashing {
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-        // buat sebuah random salt
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-
-        // password yang aka di hashing
-        String password = "password123";
-
-        // Hash password dengan salt
-        byte[] hashedPassword = hashPassword(password, salt);
-
-        // Convert salt and hashed password to Base64 for storage
-        String encodedSalt = Base64.getEncoder().encodeToString(salt);
-        String encodedHashedPassword = Base64.getEncoder().encodeToString(hashedPassword);
-
-        // Print the salt and hashed password for verification
-        System.out.println("Salt: " + encodedSalt);
-        System.out.println("Hashed Password: " + encodedHashedPassword);
-    }
-
-    public static byte[] hashPassword(String password, byte[] salt) throws NoSuchAlgorithmException {
-        // Combine the password and salt
-        String passwordWithSalt = password + new String(salt);
-        // Hash the combined string with SHA256
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-        messageDigest.update(passwordWithSalt.getBytes());
-        byte[] hashedPassword = messageDigest.digest();
-
-        // Return the hashed password
-        return hashedPassword;
-    }
-
-}
-
+================================================================================================
 package com.example.demo.utility;
 import javax.mail.MessagingException;
 import com.example.demo.service.EmailService;
@@ -56,8 +16,40 @@ public class EmailController {
         }
     }
 }
+=================================================================================================
+================================================================================================
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
+public interface UserRepository extends JpaRepository<User, Long> {
 
-Pada contoh di atas, pertama-tama kita menghasilkan salt secara acak menggunakan SecureRandom.
-Kemudian, kita menggabungkan password dengan salt dan menghasilkan hash dengan algoritma SHA256.
-Salt dan hash hasilnya kemudian dikonversi menjadi string dalam bentuk Base64 untuk disimpan.
+    @Modifying
+    @Query("UPDATE User u SET u.field = :value WHERE u.username = :username")
+    void updateByUsername(String username, String value);
+}
+-------------------------------------------------------------------------------------------------
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Repository
+@Transactional
+public class UserRepositoryImpl implements UserRepositoryCustom {
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Override
+    @Modifying
+    public void updateByUsername(String username, String newValue) {
+        Query query = entityManager.createNativeQuery("UPDATE users SET field = :value WHERE username = :username");
+        query.setParameter("value", newValue);
+        query.setParameter("username", username);
+        query.executeUpdate();
+    }
+}
+========================================================================================================================

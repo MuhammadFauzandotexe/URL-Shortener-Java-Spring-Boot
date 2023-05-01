@@ -8,11 +8,13 @@ import com.example.demo.utility.PayLoadEncoder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
+
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+
+
 @AllArgsConstructor
 @Service
 public class AuthorService {
@@ -20,11 +22,16 @@ public class AuthorService {
     private final AuthorRepository authorRepository;
     private final ConfigDTO configDTO;
     private final PayLoadEncoder payLoadEncoder;
+    public List<Author>  getAllDataAuthor(){
+        return authorRepository.findAll();
+    }
+    public Optional<Author> getAuthorById(Long id){
+        return authorRepository.findById(id);
+    }
     public Author saveData(AuthorDTO dto) throws NoSuchAlgorithmException, IOException {
         String uniqueKey = dto.getUniqueKey();
         String payLoad = payLoadEncoder.encode(uniqueKey,dto.getName(),dto.getEmail());
-        String payLoadEncode = Base64.getEncoder().encodeToString(payLoad.getBytes());
-        String link = configDTO.domain+payLoadEncode;
+        String link = configDTO.domain+payLoad;
         Author author = new Author();
         author.setPassword(dto.getPassword());
         author.setVerificationStatus("unverified");
@@ -37,11 +44,5 @@ public class AuthorService {
         context.setVariable("link",link);
         emailService.sendEmail(dto.getEmail(),"Verifikasi Akun Anda-Dedicated Code","email",context);
         return authorRepository.save(author);
-    }
-    public List<Author> getAllDataAuthor(){
-        return authorRepository.findAll();
-    }
-    public Optional<Author> getAuthorById(Long id){
-        return authorRepository.findById(id);
     }
 }
