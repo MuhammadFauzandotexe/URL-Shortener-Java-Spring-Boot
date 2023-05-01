@@ -4,7 +4,10 @@ import com.example.demo.dto.AuthorDTO;
 import com.example.demo.model.Author;
 import com.example.demo.service.AuthorService;
 import com.example.demo.service.AuthorUpdateService;
+import com.example.demo.utility.ClearClass;
+import com.example.demo.utility.JsonParser;
 import com.example.demo.utility.PayLoadEncoder;
+import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,8 @@ public class AuthorResource {
     private final AuthorUpdateService authorUpdateService;
     private final AuthorService authorService;
     private final PayLoadEncoder payLoadEncoder;
+    private final JsonParser jsonParser;
+    private final ClearClass clearClass;
     @GetMapping("/author")
     public ResponseEntity<List<Author>> getAllDataAuthor(){
         return ResponseEntity.ok(authorService.getAllDataAuthor());
@@ -27,12 +32,10 @@ public class AuthorResource {
     }
     @GetMapping("/{payload}")
     public String verify(@PathVariable String payload) {
-        String payloadDecoded = payLoadEncoder.decode(payload);
-        return payloadDecoded;
-    }
-    @GetMapping("/test")
-    public String coba(){
-        authorUpdateService.updateByname("fauzan","fauzan","ihpDPUpS/BaKST4MvYUCAA==");
+        JsonObject jsonObject = clearClass.decodeJson(payload);
+        String username = String.valueOf(jsonObject.get("username"));
+        String uniqueKey = String.valueOf(jsonObject.get("uniqueKey"));
+        String email = String.valueOf(jsonObject.get("email"));
         return "done";
     }
 }

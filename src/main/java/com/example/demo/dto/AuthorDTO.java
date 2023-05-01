@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 @Data
 public class AuthorDTO {
-    private String name;
+    private String username;
     private String email;
     private String password;
     public String getUniqueKey() throws NoSuchAlgorithmException {

@@ -11,11 +11,11 @@ import java.util.Set;
 @Table(name = "authors")
 public class Author {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "uuid", nullable = false)
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     private String uuid;
-    private String name;
+    private String username;
     private String email;
     private String password;
     @Column(name = "unique_key")

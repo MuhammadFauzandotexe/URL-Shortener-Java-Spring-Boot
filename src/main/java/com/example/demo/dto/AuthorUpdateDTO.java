@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class AuthorUpdateDTO {
-    private String name;
+    private String uniqueKey;
+    private String username;
     private String email;
+
 }

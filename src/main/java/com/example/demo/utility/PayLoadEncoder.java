@@ -1,18 +1,14 @@
 package com.example.demo.utility;
 
-import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+
 import java.util.Base64;
 @Service
 @AllArgsConstructor
 public class PayLoadEncoder {
-    private final JsonObject jsonObject;
-    @SneakyThrows
-    public String encode(String uniqueKey, String name, String email){
-        String payLoad = uniqueKey+"&="+name+"&="+email;
-        String payLoadEncode = Base64.getEncoder().encodeToString(payLoad.getBytes());
+    public String encode(String payload){
+        String payLoadEncode = Base64.getEncoder().encodeToString(payload.getBytes());
         return payLoadEncode;
     }
     public String decode(String payload){
@@ -21,7 +17,7 @@ public class PayLoadEncoder {
             String payloadDecode = new String(data);
             return payloadDecode;
         }catch (IllegalArgumentException e){
-            return "oops some things wrongs";
+            return "IllegalArgument";
         }
     }
 }
