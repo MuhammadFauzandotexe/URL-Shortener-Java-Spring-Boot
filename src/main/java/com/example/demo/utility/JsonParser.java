@@ -20,7 +20,12 @@ public class JsonParser {
         return jsonEncoded;
     }
     public JsonObject decodeJson(String payload){
-        JsonObject jsonObject = gson.fromJson(payLoadEncoder.decode(payload), JsonElement.class).getAsJsonObject();
-        return jsonObject;
+        try {
+            JsonObject jsonObject = gson.fromJson(payLoadEncoder.decode(payload), JsonElement.class).getAsJsonObject();
+            return jsonObject;
+        }catch (IllegalArgumentException e){
+            return jsonObject;
+        }
+
     }
 }

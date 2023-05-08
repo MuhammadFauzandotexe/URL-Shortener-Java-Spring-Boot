@@ -2,6 +2,8 @@ package com.example.demo.service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+@Slf4j
 @Service
 @AllArgsConstructor
 public class EmailService {
@@ -17,6 +20,8 @@ public class EmailService {
     public String sendEmail(String to, String subject, String templateName, Context context) throws IOException {
         try {
             EmailOrder(to, subject, templateName,context);
+            log.info("emial telah dikirimkan ke "+to);
+            
             return "ok";
         } catch (MessagingException e) {
             return "address not found" + e.getMessage();

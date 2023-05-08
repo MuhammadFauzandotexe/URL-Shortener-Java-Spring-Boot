@@ -1,20 +1,17 @@
 package com.example.demo.model;
 
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
 @Data
 @Entity
 @Table(name = "URLs")
-public class URL {
+public class Url {
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    private String uuid;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "url_generator")
+    @SequenceGenerator(name = "url_generator",sequenceName = "url_id_seq")
+    private Long id;
     @Column(name = "native_url")
     private String nativeURL;
     @Column(name = "new_url")
