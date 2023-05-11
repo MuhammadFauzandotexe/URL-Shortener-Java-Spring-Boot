@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 @Data
 @Entity
-@Table(name = "URLs")
+@Table(name = "urls")
 public class Url {
     @Id
     @Column(name = "id", nullable = false)
@@ -14,7 +14,7 @@ public class Url {
     private Long id;
     @Column(name = "native_url")
     private String nativeURL;
-    @Column(name = "new_url")
+    @Column(name = "new_url",unique = true)
     private String newURL;
     @Column(name = "created_at")
     private LocalDateTime createdAt;

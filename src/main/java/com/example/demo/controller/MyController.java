@@ -9,18 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @AllArgsConstructor
-public class Redirect {
+public class MyController {
     private RedirectService redirectService;
-    @GetMapping("xxxx/{url}")
-    public String Index(@PathVariable("url") String url, Model model){
-        return "redirect:www.youtube.com";
+    @GetMapping("/{url}")
+    public String redirectToPage(@PathVariable("url") String url, Model modell) {
+        return redirectService.getUrl(url);
     }
-
-
-
-//    public RedirectView Index(@PathVariable("url") String url){
-//        RedirectView redirectView = new RedirectView();
-//        redirectView.setUrl(redirectService.getUrl(url).toString());
-//        return redirectView;
-//    }
 }
