@@ -3,7 +3,6 @@ package com.example.demo.dto;
 import lombok.Data;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.util.Base64;
 @Data
 public class AuthorDTO {
@@ -15,9 +14,5 @@ public class AuthorDTO {
         byte[] saltBytes = new byte[16];
         random.nextBytes(saltBytes);
         return Base64.getEncoder().encodeToString(saltBytes);
-    }
-    public LocalDateTime getTimeNow(){
-        LocalDateTime now = LocalDateTime.now();
-        return now;
     }
 }

@@ -4,22 +4,22 @@ import com.example.demo.dto.UrlDTO;
 import com.example.demo.model.Author;
 import com.example.demo.model.Url;
 import com.example.demo.repository.AuthorRepository;
-import com.example.demo.repository.URLRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
-
+import java.time.LocalDateTime;
 @AllArgsConstructor
 @Service
 public class UrlService {
-    private final URLRepository urlRepository;
     private final AuthorRepository authorRepository;
-    public String dto(Long id, UrlDTO dto){
-        Author author = authorRepository.findById(1L).orElseThrow(EntityNotFoundException::new);
+    public Author addNewURL(Long id, UrlDTO dto){
+        Author author = authorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         Url url = new Url();
-        url.setNewURL("yyyyyyy");
+        url.setNewURL(dto.getNewURL());
+        url.setNativeURL(dto.getNativeURL());
+        url.setCreatedAt(LocalDateTime.now());
+        url.setUpdatedAt(LocalDateTime.now());
         author.addChild(url);
-        authorRepository.save(author);
-        return "done";
+        return authorRepository.save(author);
     }
 }

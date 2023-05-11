@@ -53,3 +53,31 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 }
 ========================================================================================================================
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class UserRepositoryImpl implements UserRepositoryCustom {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public List<User> findUsersByFirstName(String firstName) {
+        String queryString = "SELECT u FROM User u WHERE u.firstName = :firstName";
+        Query query = entityManager.createQuery(queryString, User.class);
+        query.setParameter("firstName", firstName);
+        return query.getResultList();
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        String queryString = "SELECT u FROM User u WHERE u.email = :email";
+        Query query = entityManager.createQuery(queryString, User.class);
+        query.setParameter("email", email);
+        return (User) query.getSingleResult();
+    }
+}

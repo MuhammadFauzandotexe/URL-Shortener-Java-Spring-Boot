@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta http-equiv="refresh" content="1; url=https://www.youtube.com/">
-  <title>Contoh Redirect HTML</title>
+  <meta http-equiv="refresh" content="1; url=${link}">
+  <title th:content="${title}">Contoh Redirect HTML</title>
 </head>
 <body>
-<h1>Halaman Akan Diarahkan ke Halaman Baru dalam 5 detik</h1>
-<p>Jika browser tidak mendukung redirect, silakan klik <a href="https://www.youtube.com/">tautan ini</a>.</p>
+<h1 th:content="${heading}">Halaman Akan Diarahkan ke Halaman Baru dalam 5 detik</h1>
+<p>Jika browser tidak mendukung redirect, silakan klik <a th:href="${link}">tautan ini</a>.</p>
 </body>
 </html>

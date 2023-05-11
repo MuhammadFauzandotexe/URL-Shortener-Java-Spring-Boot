@@ -13,16 +13,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 @Slf4j
 @AllArgsConstructor
 @Service
@@ -44,13 +43,13 @@ public class AuthorService {
      public Author addNewAuthor(AuthorDTO dto) throws NoSuchAlgorithmException, IOException {
         String uniqueKey = dto.getUniqueKey();
         String payLoad = jsonParser.encodeJson(uniqueKey, dto.getUsername(), dto.getEmail());
-        String link = configDTO.domain+payLoad;
+        String link = configDTO.domain+"author/"+payLoad;
         Author author = new Author();
         author.setPassword(dto.getPassword());
         author.setVerificationStatus("unverified");
         author.setUniqueKey(uniqueKey);
-        author.setCreatedAt(dto.getTimeNow());
-        author.setUpdatedAt(dto.getTimeNow());
+        author.setCreatedAt(LocalDateTime.now());
+        author.setUpdatedAt(LocalDateTime.now());
         Context context = new Context();
         context.setVariable("username",dto.getUsername());
         context.setVariable("payload",link);

@@ -21,7 +21,7 @@ public class AuthorResource {
     public ResponseEntity<Author> AuthorPostRequest(@RequestBody AuthorDTO dto) throws NoSuchAlgorithmException, IOException {
         return ResponseEntity.ok(authorService.addNewAuthor(dto));
     }
-    @GetMapping("/{payload}")
+    @GetMapping("author/{payload}")
     public String AuthorVerification(@PathVariable String payload) {
         String result = (authorService.updateByName(payload) > 0) ? "Your account has been verified" : "not found";
         return result;

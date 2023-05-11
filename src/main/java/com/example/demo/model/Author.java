@@ -1,12 +1,10 @@
 package com.example.demo.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 @Data
 @Entity
 @Table(name = "authors")
